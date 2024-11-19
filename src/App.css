@@ -1,0 +1,167 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* Navigation Bar Styles */
+.navbar {
+  background: linear-gradient(to right, #000000, #0d3a78); /* Gradient background with blue tones */
+  padding: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px; /* Add space between links */
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 25px; /* Rounded links */
+  background: rgba(255, 255, 255, 0.1); /* Subtle background */
+}
+
+.btn {
+  
+  margin: 0px 54px;
+  padding: 6px 10px; /* Consistent padding */
+  border-radius: 23px; /* Rounded corners */
+  border: 2px solid transparent; /* Transparent border */
+  color: #333; /* Text color */
+  font-size: 16px; /* Text size */
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+/* Hover Effect */
+.btn:hover {
+  transform: translateY(-3px); /* Button "lift" effect */
+  background: rgba(243, 223, 223, 0.142); /* Darker background on hover */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+/* Add a search bar inside the navigation bar */
+.navbar .search-bar {
+  margin-right: auto; /* Push to the left */
+  margin-left: 20px;
+}
+
+.search-bar input {
+  padding: 8px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-bar input:focus {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for Main Content */
+h1 {
+  color: #1e3c72;
+  font-size: 36px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+button {
+  padding: 12px 30px;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  background: linear-gradient(to right, #ff416c, #ff4b2b); /* Gradient button background */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: left 0.5s;
+}
+
+button:hover {
+  transform: scale(1.1); /* Button grows slightly */
+}
+
+button:hover:before {
+  left: 100%; /* Animated shimmer effect */
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+  color: #555;
+}
+
+/* Custom Buttons with Unique Animations */
+.start-button {
+  background: linear-gradient(to right, #1fa2ff, #12d8fa, #a6ffcb); /* Cool blue gradient */
+}
+
+.start-button:hover {
+  background: linear-gradient(to right, #12d8fa, #1fa2ff, #a6ffcb);
+}
+
+.stop-button {
+  background: linear-gradient(to right, #ff416c, #ff4b2b); /* Warm red gradient */
+}
+
+.stop-button:hover {
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+}
+
+/* Footer Styles */
+footer {
+  background: #1e3c72;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+  font-size: 14px;
+}
+
+footer a {
+  color: #ff416c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
