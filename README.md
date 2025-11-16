@@ -1,7 +1,64 @@
-# Getting Started with python backend
-### `server.py`
+# AI Fitness Application
 
-# Getting Started with Create React App
+## Prerequisites
+- **Python 3.11** (REQUIRED - MediaPipe doesn't support Python 3.13+)
+- Node.js and npm
+
+## Installation Steps
+
+### 1. Install Python 3.11
+Download and install Python 3.11.9 from: https://www.python.org/downloads/release/python-3119/
+## Python Version Setup
+
+This project requires **Python 3.10** because MediaPipe, TensorFlow 2.x, and some ML packages 
+do not support Python 3.12 or 3.13.
+
+### Download Python 3.10
+Windows (64-bit):
+https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe
+
+### Create Virtual Environment
+py -3.10 -m venv venv
+
+### Activate Virtual Environment
+# Windows
+venv\Scripts\activate
+
+# macOS / Linux
+source venv/bin/activate
+
+### Install Dependencies
+pip install -r requirements.txt
+
+### (Optional) Install Mediapipe manually
+pip install mediapipe==0.10.11
+### 2. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Alternative: Use Python Virtual Environment
+If you have Python 3.11 installed:
+```bash
+python3.11 -m venv venv311
+venv311\Scripts\activate  # Windows
+pip install -r requirements.txt
+```
+
+## Setup Commands
+
+### For Backend:
+```bash
+python server.py
+```
+
+### For Frontend:
+```bash
+npm install
+npm start
+```
+
+## Frontend Setup
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

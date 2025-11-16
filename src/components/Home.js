@@ -1,19 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css'; // Import the CSS file for styling
 
 function Home({ videoFile, setVideoFile, exerciseType, setExerciseType, handleStartExercise }) {
   const [isVideoActive, setIsVideoActive] = useState(false);
+  const [exerciseCount, setExerciseCount] = useState(0);
+  const [isExercising, setIsExercising] = useState(false);
 
-  // Start video stream from webcam
-  const startVideo = () => {
-    setIsVideoActive(true);
+  // Poll for exercise count
+  useEffect(() => {
+    if (isExercising) {
+      const interval = setInterval(() => {
+        fetch("http://127.0.0.1:5000/get_count")
+          .then((response) => response.json())
+          .then((data) => {
+            setExerciseCount(data.count);
+            if (!data.active) {
+              setIsExercising(false);
+              setIsVideoActive(false);
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }, 500);
+      return () => clearInterval(interval);
+    }
+  }, [isExercising]);
+
+  // Start video stream and exercise
+  const startExercise = () => {
+    const formData = new FormData();
+    formData.append("exercise_type", exerciseType);
+    if (videoFile) {
+      formData.append("video_source", videoFile);
+    }
+
+    fetch("http://127.0.0.1:5000/start_exercise", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message) {
+          setIsVideoActive(true);
+          setIsExercising(true);
+          setExerciseCount(0);
+        } else {
+          alert("Error: " + data.error);
+        }
+      })
+      .catch((error) => console.error("Error:", error));
   };
 
   // Stop video stream
   const stopVideo = () => {
     setIsVideoActive(false);
-    setVideoFile(null); // Clear any selected video file
-    setExerciseType("Push-Up"); // Reset exercise type to default
+    setIsExercising(false);
 
     // Make API call to stop exercise
     fetch("http://127.0.0.1:5000/stop_exercise", {
@@ -21,8 +61,7 @@ function Home({ videoFile, setVideoFile, exerciseType, setExerciseType, handleSt
     })
       .then((response) => response.json())
       .then((data) => {
-        alert(data.message); // Show success message
-        handleStartExercise(); // Disable any ongoing exercise
+        alert(`Exercise stopped! Total count: ${data.final_count}`);
       })
       .catch((error) => console.error("Error:", error));
   };
@@ -30,48 +69,68 @@ function Home({ videoFile, setVideoFile, exerciseType, setExerciseType, handleSt
   return (
     <div className="home-container">
       {/* Background video */}
-      <div className="video-background">
-      <video autoPlay muted loop>
-  <source src="/images/body.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
-</video>
-      </div>
+      {!isVideoActive && (
+        <div className="video-background">
+          <video autoPlay muted loop>
+            <source src="/images/body.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      )}
 
       <div className="content">
-        <h1 className="title">Exercise Tracker</h1>
+        <h1 className="title">AI Fitness Tracker</h1>
 
-        {/* Exercise Form */}
-        <div className="form-group">
-          <label>Exercise Type: </label>
-          <select value={exerciseType} onChange={(e) => setExerciseType(e.target.value)}>
-            <option value="Push-Up">Push-Up</option>
-            <option value="Squat">Squat</option>
-            <option value="Sit-Up">Sit-Up</option>
-          </select>
-        </div>
+        {/* Exercise count display */}
+        {isExercising && (
+          <div className="count-display">
+            <h2>Count: {exerciseCount}</h2>
+          </div>
+        )}
 
-        <div className="form-group">
-          <label>Upload Video: </label>
-          <input type="file" onChange={(e) => setVideoFile(e.target.files[0])} />
-          <p>{videoFile ? videoFile.name : "No file chosen"}</p>
-        </div>
+        {/* Video stream display */}
+        {isVideoActive && (
+          <div className="video-container">
+            <img 
+              src="http://127.0.0.1:5000/video_feed" 
+              alt="Exercise Video Stream"
+              style={{ width: '100%', maxWidth: '800px', borderRadius: '10px' }}
+            />
+          </div>
+        )}
 
-        <button onClick={handleStartExercise} disabled={!isVideoActive} className="action-button start-btn">
-          Start Exercise
-        </button>
+        {!isVideoActive && (
+          <>
+            {/* Exercise Form */}
+            <div className="form-group">
+              <label>Exercise Type: </label>
+              <select value={exerciseType} onChange={(e) => setExerciseType(e.target.value)}>
+                <option value="push-up">Push-Up</option>
+                <option value="squat">Squat</option>
+                <option value="sit-up">Sit-Up</option>
+                <option value="pull-up">Pull-Up</option>
+                <option value="walk">Walk</option>
+              </select>
+            </div>
 
-        {/* Stop Camera Section */}
-        <div>
-          {!isVideoActive ? (
-            <button onClick={startVideo} className="action-button start-btn">
-              Start Camera
+            <div className="form-group">
+              <label>Upload Video (Optional): </label>
+              <input type="file" accept="video/*" onChange={(e) => setVideoFile(e.target.files[0])} />
+              <p>{videoFile ? videoFile.name : "No file chosen - will use webcam"}</p>
+            </div>
+
+            <button onClick={startExercise} className="action-button start-btn">
+              Start Exercise
             </button>
-          ) : (
-            <button onClick={stopVideo} className="action-button stop-btn">
-              Stop Camera
-            </button>
-          )}
-        </div>
+          </>
+        )}
+
+        {/* Stop Exercise Button */}
+        {isVideoActive && (
+          <button onClick={stopVideo} className="action-button stop-btn">
+            Stop Exercise
+          </button>
+        )}
       </div>
     </div>
   );

@@ -61,4 +61,59 @@
     color: #666;
     line-height: 1.5;
   }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .exercises-container {
+      padding: 15px;
+    }
+
+    .exercises-header {
+      font-size: 28px;
+    }
+
+    .exercises-intro {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .exercises-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .exercise-title {
+      font-size: 20px;
+    }
+
+    .exercise-description {
+      font-size: 14px;
+    }
+
+    .exercise-image {
+      height: 180px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .exercises-header {
+      font-size: 24px;
+    }
+
+    .exercises-intro {
+      font-size: 14px;
+    }
+
+    .exercise-title {
+      font-size: 18px;
+    }
+
+    .exercise-description {
+      font-size: 13px;
+    }
+
+    .exercise-image {
+      height: 150px;
+    }
+  }
   

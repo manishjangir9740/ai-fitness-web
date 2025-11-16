@@ -9,6 +9,44 @@
     object-fit: cover;
     opacity: 0.8;
   }
+
+/* Video container for exercise stream */
+.video-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.video-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Count display */
+.count-display {
+  background-color: rgba(76, 175, 80, 0.9);
+  color: white;
+  padding: 20px 40px;
+  border-radius: 10px;
+  margin: 20px auto;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
   
   /* Centered content */
   .home-container {
@@ -128,4 +166,58 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .title {
+      font-size: 28px;
+    }
+
+    .content {
+      padding: 10px;
+      width: 95%;
+    }
+
+    .video-container {
+      max-width: 100%;
+    }
+
+    .action-button {
+      padding: 12px 24px;
+      font-size: 14px;
+      width: 90%;
+      max-width: 300px;
+    }
+
+    select, input[type="file"] {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .count-display {
+      padding: 15px 30px;
+      font-size: 20px;
+    }
+
+    .form-group {
+      padding: 15px;
+      margin: 10px 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .title {
+      font-size: 24px;
+    }
+
+    .count-display {
+      padding: 10px 20px;
+      font-size: 18px;
+    }
+
+    .action-button {
+      padding: 10px 20px;
+      font-size: 13px;
+    }
   }

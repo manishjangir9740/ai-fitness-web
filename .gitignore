@@ -1,0 +1,41 @@
+# Node.js
+node_modules/
+.npm-debug.log*
+
+# Python
+venv/
+venv*/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv310/
+
+# Deployment
+/build/
+/dist/
+/uploads/
+.DS_Store
+.env
+.env.*
+*.sqlite3
+db.sqlite3
+
+# VSCode
+.vscode/
+
+# System
+Thumbs.db
+.DS_Store
+
+# Backend/package lock
+Pipfile.lock
+poetry.lock
+
+# Logs
+*.log
+
+# Production
+Procfile
+runtime.txt
