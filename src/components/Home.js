@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css'; // Import the CSS file for styling
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:5000";
+
 function Home({ videoFile, setVideoFile, exerciseType, setExerciseType, handleStartExercise }) {
   const [isVideoActive, setIsVideoActive] = useState(false);
   const [exerciseCount, setExerciseCount] = useState(0);
@@ -10,7 +12,7 @@ function Home({ videoFile, setVideoFile, exerciseType, setExerciseType, handleSt
   useEffect(() => {
     if (isExercising) {
       const interval = setInterval(() => {
-        fetch("http://127.0.0.1:5000/get_count")
+        fetch(`${BACKEND_URL}/get_count`)
           .then((response) => response.json())
           .then((data) => {
             setExerciseCount(data.count);
@@ -33,7 +35,7 @@ function Home({ videoFile, setVideoFile, exerciseType, setExerciseType, handleSt
       formData.append("video_source", videoFile);
     }
 
-    fetch("http://127.0.0.1:5000/start_exercise", {
+    fetch(`${BACKEND_URL}/start_exercise`, {
       method: "POST",
       body: formData,
     })
@@ -56,7 +58,7 @@ function Home({ videoFile, setVideoFile, exerciseType, setExerciseType, handleSt
     setIsExercising(false);
 
     // Make API call to stop exercise
-    fetch("http://127.0.0.1:5000/stop_exercise", {
+    fetch(`${BACKEND_URL}/stop_exercise`, {
       method: "POST",
     })
       .then((response) => response.json())
@@ -92,7 +94,7 @@ function Home({ videoFile, setVideoFile, exerciseType, setExerciseType, handleSt
         {isVideoActive && (
           <div className="video-container">
             <img 
-              src="http://127.0.0.1:5000/video_feed" 
+              src={`${BACKEND_URL}/video_feed`}
               alt="Exercise Video Stream"
               style={{ width: '100%', maxWidth: '800px', borderRadius: '10px' }}
             />

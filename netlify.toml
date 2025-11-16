@@ -1,0 +1,17 @@
+[build]
+  # Build command for React frontend only
+  command = "npm run build"
+  
+  # Output directory after build
+  publish = "build"
+
+# Node version
+[build.environment]
+  NODE_VERSION = "18"
+
+# Redirects for Single Page Application (React Router)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
